@@ -107,7 +107,7 @@
 #define OS_MAINSTKSIZE          256
 #endif
 #ifndef OS_CLOCK
-#define OS_CLOCK                96000000
+#define OS_CLOCK                16000000
 #endif
 
 #elif defined(TARGET_LPC2368)

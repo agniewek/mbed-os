@@ -293,9 +293,9 @@
  */
 
 #define CLOCK_SETUP           1
-#define SCS_Val               0x00000020
+#define SCS_Val               0x00000030
 #define CLKSRCSEL_Val         0x00000001
-#define PLL0_SETUP            1
+#define PLL0_SETUP            0
 
 #ifdef MCB1700
 #    define PLL0CFG_Val           0x00050063
@@ -307,7 +307,7 @@
 #    define PLL0CFG_Val           0x0000000B
 #    define PLL1_SETUP            0
 #    define PLL1CFG_Val           0x00000000
-#    define CCLKCFG_Val           0x00000002
+#    define CCLKCFG_Val           0x00000000
 #    define USBCLKCFG_Val         0x00000005
 #endif
 
@@ -365,7 +365,7 @@
   #endif
 #endif
 
-#if (CHECK_RANGE((CCLKCFG_Val), 2, 255))
+#if (CHECK_RANGE((CCLKCFG_Val), 0, 255))
    #error "CCLKCFG: Value out of range!"
 #endif
 
@@ -402,7 +402,7 @@
 /*----------------------------------------------------------------------------
   Define clocks
  *----------------------------------------------------------------------------*/
-#define XTAL        (12000000UL)        /* Oscillator frequency               */
+#define XTAL        (16000000UL)        /* Oscillator frequency               */
 #define OSC_CLK     (      XTAL)        /* Main oscillator frequency          */
 #define RTC_CLK     (   32000UL)        /* RTC oscillator frequency           */
 #define IRC_OSC     ( 4000000UL)        /* Internal RC oscillator frequency   */
@@ -528,9 +528,9 @@ void SystemInit (void)
    */
   LPC_SC->PCLKSEL0  = PCLKSEL0_Val;     /* Peripheral Clock Selection         */
   LPC_SC->PCLKSEL1  = PCLKSEL1_Val;
+  LPC_SC->CLKSRCSEL = CLKSRCSEL_Val;    /* Select Clock Source                */
 
 #if (PLL0_SETUP)
-  LPC_SC->CLKSRCSEL = CLKSRCSEL_Val;    /* Select Clock Source for PLL0       */
 
   LPC_SC->PLL0CFG   = PLL0CFG_Val;      /* configure PLL0                     */
   LPC_SC->PLL0FEED  = 0xAA;
